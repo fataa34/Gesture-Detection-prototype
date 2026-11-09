@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10213b">
+  <title>Deteksi Bahasa Isyarat</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">
+      <span class="brand-icon">✋</span>
+      <span><strong>SignLens</strong><small>Deteksi Bahasa Isyarat</small></span>
+    </a>
+    <span class="top-status"><i></i> Aplikasi siap</span>
+  </header>
+
+  <main class="container">
+    <section class="intro">
+      <p class="eyebrow">PEMBELAJARAN INTERAKTIF · SMP KELAS 7</p>
+      <h1>Kenali isyarat tanganmu.</h1>
+      <p>Arahkan tangan ke kamera. Sistem akan mengenali isyarat bawaan MediaPipe maupun isyarat custom.</p>
+    </section>
+
+    <section class="workspace">
+      <div class="camera-card panel">
+        <div class="section-heading">
+          <div><span class="eyebrow">KAMERA LANGSUNG</span><h2>Area deteksi</h2></div>
+          <span id="cameraBadge" class="badge badge-muted">Kamera mati</span>
+        </div>
+
+        <div class="video-wrap">
+          <video id="video" autoplay playsinline muted></video>
+          <canvas id="snapshotCanvas" hidden></canvas>
+          <div id="cameraPlaceholder" class="camera-placeholder">
+            <div class="camera-symbol">▣</div>
+            <strong>Kamera belum dinyalakan</strong>
+            <span>Tekan tombol Mulai Kamera untuk memberikan izin akses.</span>
+          </div>
+          <div id="videoOverlay" class="video-overlay" hidden>
+            <span id="overlayLabel">Menunggu isyarat...</span>
+          </div>
+        </div>
+
+        <div class="camera-actions">
+          <button id="startBtn" class="btn btn-primary">▶ Mulai Kamera</button>
+          <button id="stopBtn" class="btn btn-secondary" disabled>■ Berhenti</button>
+          <button id="saveBtn" class="btn btn-save" disabled>▣ Simpan Foto</button>
+        </div>
+        <p id="statusMessage" class="status-message" role="status">Izinkan akses kamera ketika browser memintanya.</p>
+      </div>
+
+      <aside class="result-card panel">
+        <span class="eyebrow">HASIL PENGENALAN</span>
+        <div id="resultDot" class="result-dot">?</div>
+        <p class="result-caption">Isyarat terdeteksi</p>
+        <h2 id="gestureName">Belum ada hasil</h2>
+        <span id="sourceBadge" class="badge badge-muted">Menunggu kamera</span>
+        <div class="result-details">
+          <div><span>Status</span><strong id="recognitionStatus">Menunggu</strong></div>
+          <div><span>Pola jari</span><strong id="fingerPattern">—</strong></div>
+          <div><span>Keyakinan model</span><strong id="confidence">—</strong></div>
+        </div>
+        <div class="legend">
+          <span><i class="legend-green"></i> Model bawaan</span>
+          <span><i class="legend-orange"></i> Isyarat custom</span>
+          <span><i class="legend-red"></i> Tidak dikenali</span>
+        </div>
+      </aside>
+    </section>
+
+    <section class="gallery-section panel">
+      <div class="section-heading">
+        <div><span class="eyebrow">DOKUMENTASI</span><h2>Galeri foto</h2></div>
+        <button id="refreshGalleryBtn" class="btn btn-outline">↻ Perbarui</button>
+      </div>
+      <p class="gallery-note">Foto yang disimpan akan muncul di sini. Galeri menampilkan maksimal 100 foto terbaru.</p>
+      <div id="gallery" class="gallery-grid">
+        <p class="empty-gallery">Belum ada foto. Kenali isyarat lalu tekan Simpan Foto.</p>
+      </div>
+    </section>
+
+    <section class="help-grid">
+      <article class="help-card"><span>01</span><h3>Nyalakan kamera</h3><p>Izinkan browser mengakses kamera perangkat.</p></article>
+      <article class="help-card"><span>02</span><h3>Tunjukkan isyarat</h3><p>Posisikan satu tangan dengan jelas di depan kamera.</p></article>
+      <article class="help-card"><span>03</span><h3>Simpan hasil</h3><p>Tombol simpan aktif ketika isyarat berhasil dikenali.</p></article>
+    </section>
+  </main>
+
+  <footer>SignLens · Proyek pembelajaran pengenalan bahasa isyarat</footer>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
