@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: signlens-gesture-website
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --workers 1 --threads 4 --timeout 120 --bind 0.0.0.0:$PORT app:app
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: MODEL_PATH
+        value: /opt/render/project/src/gesture_recognizer.task
+      - key: UPLOAD_DIR
+        value: /var/data/hasil_capture
+    disk:
+      name: signlens-photos
+      mountPath: /var/data
+      sizeGB: 1
